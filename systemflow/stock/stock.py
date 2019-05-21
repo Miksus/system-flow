@@ -64,11 +64,6 @@ class Stock(StockBase):
         new_value = orig_value + increment - decrement
 
         if not self.isin_limits(new_value): 
-            
-            if self.upper_limit is not None and new_value > self.upper_limit:
-                allowed_change = self.upper_limit - self.value
-            elif self.lower_limit is not None and new_value < self.lower_limit:
-                allowed_change = self.lower_limit - self.value
 
             raise exceptions.OutOfLimitsError(
                 lower_limit=self.lower_limit,
@@ -124,19 +119,19 @@ class Stock(StockBase):
     def __add__(self, other):
         # self + other
         # >>> Operation(self, other)
-        return computators.AddOperation(self, other)
+        return computators.AddComputator(self, other)
 
     def __sub__(self, other):
         # self - other
-        return computators.SubOperation(self, other)
+        return computators.SubComputator(self, other)
 
     def __mul__(self, other):
         # self * other
-        return computators.MulOperation(self, other)
+        return computators.MulComputator(self, other)
 
     def __truediv__(self, other):
         # self / other
-        return computators.DivOperation(self, other)
+        return computators.DivComputator(self, other)
 
 # Flow mechanics
     def __rshift__(self, other):

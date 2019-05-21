@@ -1,2 +1,7 @@
-from .base import Operation
-from .arithmetics import AddOperation, SubOperation, DivOperation, MulOperation
+from .base import (
+    ComputatorBase, 
+    AddComputator, 
+    SubComputator, 
+    MulComputator, 
+    DivComputator
+)
