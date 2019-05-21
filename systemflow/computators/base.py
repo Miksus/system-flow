@@ -8,7 +8,7 @@ valves in flows
 """
 
 from systemflow.base import OperationBase, SimBase
-from systemflow import operation
+from systemflow import computators
 
 class Operation(OperationBase):
 

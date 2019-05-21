@@ -7,7 +7,7 @@ Container Stocks, Flows, Taps, et cetera
 """
 from systemflow.base import StockBase
 from systemflow import flow
-from systemflow import operation
+from systemflow import computators
 
 from systemflow import exceptions
 
@@ -124,19 +124,19 @@ class Stock(StockBase):
     def __add__(self, other):
         # self + other
         # >>> Operation(self, other)
-        return operation.AddOperation(self, other)
+        return computators.AddOperation(self, other)
 
     def __sub__(self, other):
         # self - other
-        return operation.SubOperation(self, other)
+        return computators.SubOperation(self, other)
 
     def __mul__(self, other):
         # self * other
-        return operation.MulOperation(self, other)
+        return computators.MulOperation(self, other)
 
     def __truediv__(self, other):
         # self / other
-        return operation.DivOperation(self, other)
+        return computators.DivOperation(self, other)
 
 # Flow mechanics
     def __rshift__(self, other):

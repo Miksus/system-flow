@@ -1,26 +1,26 @@
 
-from systemflow import operation
+from systemflow import computators
 
 # Arithmetic
-class AddOperation(operation.Operation):
+class AddOperation(computators.Operation):
     _operation_symbol = ' + '
     def process(self, val_1, val_2):
         return val_1 + val_2
 
 
-class SubOperation(operation.Operation):
+class SubOperation(computators.Operation):
     _operation_symbol = ' - '
     def process(self, val_1, val_2):
         return val_1 - val_2
 
 
-class MulOperation(operation.Operation):
+class MulOperation(computators.Operation):
     _operation_symbol = ' * '
     def process(self, val_1, val_2):
         return val_1 * val_2
 
 
-class DivOperation(operation.Operation):
+class DivOperation(computators.Operation):
     _operation_symbol = ' / '
     def process(self, val_1, val_2):
         return val_1 / val_2
