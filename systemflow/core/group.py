@@ -2,7 +2,8 @@ from .base import SimBase
 from collections.abc import Iterable
 
 class ContainerMixin(SimBase):
-
+    
+    _allow_nested = True
     _allowed_types = None
     _element_name = 'Element'
 
@@ -52,8 +53,11 @@ class ContainerMixin(SimBase):
     def elements(self, elements):
         elems = []
         for elem in elements:
+            allowed_types = self._allowed_types
+            if self._allow_nested:
+                allowed_types = allowed_types+(type(self),)
 
-            if not isinstance(elem, self._allowed_types):
+            if not isinstance(elem, allowed_types):
                 raise TypeError(f"All must be in {', '.join([cls.__name__ for cls in self._allowed_types])}. Given: {type(elem).__name__}")
 
             elems.append(elem)
