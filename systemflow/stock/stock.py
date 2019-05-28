@@ -1,9 +1,16 @@
 
 """
 
-Container Stocks, Flows, Taps, et cetera
+Container for system values.
 
+Stocks can be seen as the storages
+for transferable but not copyable
+goods/asset/measurement
 
+Examples:
+    - Cash
+    - Mass
+    - 
 """
 from systemflow.base import StockBase
 from systemflow import flow
@@ -27,7 +34,7 @@ class Stock(StockBase):
         [type] -- [description]
     """
 
-    def __init__(self, name, initial_value, lower_limit=None, upper_limit=None):
+    def __init__(self, name, initial_value=0, lower_limit=None, upper_limit=None):
         self.name = name
 
         self.value = initial_value
@@ -136,7 +143,32 @@ class Stock(StockBase):
 # Flow mechanics
     def __rshift__(self, other):
         # self >> other
-        return flow.Flow(input=self, output=other)
+        if other is None:
+            return flow.OutFlow(self)
+        else:
+            return flow.Flow(input=self, output=other)
+
+# Flow mechanics
+    def __rrshift__(self, other):
+        # other >> self
+        if other is None:
+            return flow.InFlow(self)
+        else:
+            return flow.Flow(input=other, output=self)
+
+    def __lshift__(self, other):
+        # self << other
+        if other is None:
+            return flow.InFlow(self)
+        else:
+            return flow.Flow(input=other, output=self)
+
+    def __rlshift__(self, other):
+        # other << self
+        if other is None:
+            return flow.OutFlow(self)
+        else:
+            return flow.Flow(input=self, output=other)
 
 # Display
     def __str__(self):
