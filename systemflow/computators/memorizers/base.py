@@ -5,7 +5,7 @@ Memorizers are subclass of Computators that use old values in generation of curr
 This should be only computator class that is time agnostic
 """
 
-from systemflow.computators import ComputatorBase
+from systemflow.core.computator import ComputatorBase
 
 class Memorizer(ComputatorBase):
 

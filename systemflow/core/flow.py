@@ -1,12 +1,13 @@
 
 from collections.abc import Iterable
 
-from systemflow.base import FlowBase, StockBase
+from systemflow.core.base import SimBase
+from systemflow.core import stock
 
 from systemflow import exceptions
-from systemflow.flow import group
+from systemflow import groups
 
-class Flow(FlowBase):
+class Flow(SimBase):
     """Flow 
     """
 
@@ -93,7 +94,7 @@ class Flow(FlowBase):
 
     @input.setter
     def input(self, value):
-        if isinstance(value, StockBase):
+        if isinstance(value, stock.Stock):
             self._input = value
         else:
             raise NotImplementedError(type(value))
@@ -104,7 +105,7 @@ class Flow(FlowBase):
 
     @output.setter
     def output(self, value):
-        if isinstance(value, StockBase):
+        if isinstance(value, stock.Stock):
             self._output = value
         else:
             raise NotImplementedError
@@ -119,9 +120,9 @@ class Flow(FlowBase):
     def __rshift__(self, other):
         # self >> other
         second_flow = Flow(self.output, other)
-        return group.FlowGroup(self, second_flow)
+        return groups.FlowGroup(self, second_flow)
 
     def __rrshift__(self, other):
         # other >> self
         second_flow = Flow(other, self.input)
-        return group.FlowGroup(self, second_flow)
+        return groups.FlowGroup(self, second_flow)

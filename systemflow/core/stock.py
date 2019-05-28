@@ -12,14 +12,14 @@ Examples:
     - Mass
     - 
 """
-from systemflow.base import StockBase
-from systemflow import flow
-from systemflow import computators
+from systemflow.core.base import SimBase
+from systemflow.core import flow
+from systemflow.core import computator
 
 from systemflow import exceptions
 
 
-class Stock(StockBase):
+class Stock(SimBase):
     """[summary]
     
     Examples:
@@ -34,7 +34,7 @@ class Stock(StockBase):
         [type] -- [description]
     """
 
-    def __init__(self, name, initial_value=0, lower_limit=None, upper_limit=None):
+    def __init__(self, name, initial_value=None, lower_limit=None, upper_limit=None):
         self.name = name
 
         self.value = initial_value
@@ -126,19 +126,19 @@ class Stock(StockBase):
     def __add__(self, other):
         # self + other
         # >>> Operation(self, other)
-        return computators.AddComputator(self, other)
+        return computator.AddComputator(self, other)
 
     def __sub__(self, other):
         # self - other
-        return computators.SubComputator(self, other)
+        return computator.SubComputator(self, other)
 
     def __mul__(self, other):
         # self * other
-        return computators.MulComputator(self, other)
+        return computator.MulComputator(self, other)
 
     def __truediv__(self, other):
         # self / other
-        return computators.DivComputator(self, other)
+        return computator.DivComputator(self, other)
 
 # Flow mechanics
     def __rshift__(self, other):
@@ -148,7 +148,6 @@ class Stock(StockBase):
         else:
             return flow.Flow(input=self, output=other)
 
-# Flow mechanics
     def __rrshift__(self, other):
         # other >> self
         if other is None:

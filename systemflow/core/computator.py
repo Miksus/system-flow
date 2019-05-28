@@ -9,8 +9,7 @@ valves their valves.
 import inspect
 from typing import List, Tuple
 
-from systemflow.base import SimBase
-from systemflow import computators
+from systemflow.core.base import SimBase
 from systemflow.utils import list_of_lists
 
 class ComputatorBase(SimBase):

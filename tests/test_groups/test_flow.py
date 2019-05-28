@@ -1,7 +1,7 @@
 
 import pytest
 import systemflow as sf
-
+from systemflow.core.computator import ComputatorBase
 
 def get_stocks(n, initial_value=1):
     return [
@@ -46,7 +46,7 @@ def test_valve():
     assert group[1].valve == 5
     assert group[2].valve == 5
 
-    computator = sf.computators.ComputatorBase()
+    computator = ComputatorBase()
     group.valve = computator
     assert group[0].valve is computator
     assert group[1].valve is computator

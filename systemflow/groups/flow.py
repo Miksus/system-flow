@@ -4,11 +4,14 @@
 Container of similar Flows
 Can also enforce the valve to be identical
 """
-from systemflow.base import FlowBase, ContainerMixin
 
-class FlowGroup(FlowBase, ContainerMixin):
 
-    _allowed_types = (FlowBase,)
+from systemflow.core import group
+from systemflow.core import flow
+
+class FlowGroup(group.ContainerMixin):
+
+    _allowed_types = (flow.Flow,)
     _element_name = 'flow'
 
     @property

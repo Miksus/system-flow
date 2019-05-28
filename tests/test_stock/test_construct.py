@@ -1,13 +1,13 @@
 import pytest
 
 import systemflow as sf
-
+from systemflow.core.computator import AddComputator, SubComputator, DivComputator, MulComputator
 def test_add():
     a = sf.Stock("A", initial_value=2, lower_limit=0, upper_limit=10)
     b = sf.Stock("B", initial_value=8, lower_limit=0, upper_limit=10)
 
     new = a + b
-    assert isinstance(new, sf.computators.AddComputator)
+    assert isinstance(new, AddComputator)
     assert new() == 2 + 8
     assert a.value == 2
     assert b.value == 8
@@ -17,7 +17,7 @@ def test_sub():
     b = sf.Stock("B", initial_value=8, lower_limit=0, upper_limit=10)
 
     new = a - b
-    assert isinstance(new, sf.computators.SubComputator)
+    assert isinstance(new, SubComputator)
     assert new() == 2 - 8
     assert a.value == 2
     assert b.value == 8
@@ -27,7 +27,7 @@ def test_multiply():
     b = sf.Stock("B", initial_value=8, lower_limit=0, upper_limit=10)
 
     new = a * b
-    assert isinstance(new, sf.computators.MulComputator)
+    assert isinstance(new, MulComputator)
     assert new() == 2 * 8
     assert a.value == 2
     assert b.value == 8
@@ -37,7 +37,7 @@ def test_divide():
     b = sf.Stock("B", initial_value=8, lower_limit=0, upper_limit=10)
 
     new = a / b
-    assert isinstance(new, sf.computators.DivComputator)
+    assert isinstance(new, DivComputator)
     assert new() == 2 / 8
     assert a.value == 2
     assert b.value == 8
