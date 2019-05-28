@@ -5,3 +5,7 @@ from .base import (
     MulComputator, 
     DivComputator
 )
+from .memorizers import (
+    Differ,
+    Lagger
+)
