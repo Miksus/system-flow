@@ -4,6 +4,7 @@ from collections.abc import Iterable
 from systemflow.base import FlowBase, StockBase
 
 from systemflow import exceptions
+from systemflow.flow import group
 
 class Flow(FlowBase):
     """Flow 
@@ -95,7 +96,7 @@ class Flow(FlowBase):
         if isinstance(value, StockBase):
             self._input = value
         else:
-            raise NotImplementedError
+            raise NotImplementedError(type(value))
 
     @property
     def output(self):
@@ -108,3 +109,19 @@ class Flow(FlowBase):
         else:
             raise NotImplementedError
             
+    def __repr__(self):
+        repr_input = repr(self.input)
+        repr_output = repr(self.output)
+        repr_valve = repr(self.valve)
+        return f'Flow({repr_input} --({repr_valve})--> {repr_output})'
+
+# Alchemy
+    def __rshift__(self, other):
+        # self >> other
+        second_flow = Flow(self.output, other)
+        return group.FlowGroup(self, second_flow)
+
+    def __rrshift__(self, other):
+        # other >> self
+        second_flow = Flow(other, self.input)
+        return group.FlowGroup(self, second_flow)
