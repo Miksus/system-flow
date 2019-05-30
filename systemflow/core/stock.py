@@ -37,11 +37,16 @@ class Stock(SimBase):
     def __init__(self, name, initial_value=None, lower_limit=None, upper_limit=None):
         self.name = name
 
-        self.value = initial_value
+        self.initial_value = initial_value
         self.lower_limit = lower_limit
         self.upper_limit = upper_limit
 
         self.history = []
+
+        self.value = initial_value
+    
+    def reset(self):
+        self.value = self.initial_value
 
     def isin_limits(self, value):
         lower_ok = (
@@ -139,6 +144,24 @@ class Stock(SimBase):
     def __truediv__(self, other):
         # self / other
         return computator.DivComputator(self, other)
+
+# Reverse arithmetics
+    def __radd__(self, other):
+        # other + self
+        # >>> Operation(self, other)
+        return computator.AddComputator(other, self)
+
+    def __rsub__(self, other):
+        # other - self
+        return computator.SubComputator(other, self)
+
+    def __rmul__(self, other):
+        # other * self
+        return computator.MulComputator(other, self)
+
+    def __rtruediv__(self, other):
+        # other / self
+        return computator.DivComputator(other, self)
 
 # Flow mechanics
     def __rshift__(self, other):
