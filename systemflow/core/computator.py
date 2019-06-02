@@ -10,6 +10,7 @@ import inspect
 from typing import List, Tuple
 
 from systemflow.core.base import SimBase
+from systemflow.core import stock
 from systemflow.utils import list_of_lists
 
 class ComputatorBase(SimBase):
@@ -37,6 +38,8 @@ class ComputatorBase(SimBase):
 
         self._validate_arg_count(inputs, method_name="process")
         self._inputs = inputs
+
+        self.value = None
 
 
     def _validate_arg_count(self, args, method_name):
@@ -69,13 +72,15 @@ class ComputatorBase(SimBase):
         Calls all sub computators and  """
         values = self.ignite_inputs(*self.inputs)
         values = self.pre_process(*values)
-        return self.process(*values)
+        output = self.process(*values)
+        self.value = output
+        return output
 
     def ignite_inputs(self, *inputs) -> List[float]:
         "Transform the input types for computing"
         return [
             input_ if isinstance(input_, (float, int))
-            else input_.value if isinstance(input_, SimBase) and hasattr(input_, "value")
+            else input_.value if isinstance(input_, stock.Stock)
             else input_() if isinstance(input_, ComputatorBase)
             else None
             for input_ in inputs
