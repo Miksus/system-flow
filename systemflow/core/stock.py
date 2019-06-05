@@ -33,7 +33,8 @@ class Stock(SimBase):
     Returns:
         [type] -- [description]
     """
-
+    _sysflow_attrs = ()
+    
     def __init__(self, name, initial_value=None, lower_limit=None, upper_limit=None):
         self.name = name
 

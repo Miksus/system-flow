@@ -11,6 +11,8 @@ class Flow(SimBase):
     """Flow 
     """
 
+    _sysflow_attrs = ("input", "output", "valve")
+
     def __init__(self, input, output, valve=0, at_limit="to limits"):
         """[summary]
         

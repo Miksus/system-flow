@@ -3,6 +3,8 @@ from collections.abc import Iterable
 
 class ContainerMixin(SimBase):
     
+    _sysflow_attrs = ("elements",)
+
     _allow_nested = True
     _allowed_types = None
     _element_name = 'Element'

@@ -26,6 +26,8 @@ class ComputatorBase(SimBase):
 
     _operation_symbol = ', '
 
+    _sysflow_attrs = ("inputs",)
+
     def __init__(self, *inputs):
         self.inputs = inputs
 
