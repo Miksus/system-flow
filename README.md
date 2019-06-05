@@ -33,7 +33,7 @@ System Flow uses the Python's magic methods extensively. Even though magic metho
 In addition, using arithmetical operations (such as "+", "-", "*" and "/") to stocks forms a computator. It does not make sense to use these un
 
 ---
-## Terminology of the main elements
+## Terminology
 - Stock: A container for value
 - Flow: A link from one Stock to another
     - Valve: attribute of a Flow that controls how much value is passed through per time step. Can be constant or varying using computators.
@@ -47,13 +47,14 @@ Analogy:
 - Computator is kind of the wiring for the valve: does not directly affect the amount of water in each container but can be used (but not necessarily) to control how much the valve is open in each time step
 - System could be all the components in a water treatment plant
 
-
-Alchemy:
+---
+## Alchemy
 > Creating Flows from Stocks
 ```python
 a = sf.Stock("a", initial_value=5)
 b = sf.Stock("b", initial_value=5)
 a >> b
+# Same as Flow(a, b)
 ```
 
 > Creating Computator from Stocks
