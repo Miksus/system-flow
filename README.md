@@ -30,7 +30,7 @@ rain.valve = condensation
 
 ```
 System Flow uses the Python's magic methods extensively. Even though magic method "```>>```"  is a bitwise operation, it also resembles a transistion. A flow is formed using this operation in between two stocks. This is also equal to ```Flow(sf.Stock("a"), sf.Stock("b"))```.
-In addition, using arithmetical operations (such as "+", "-", "*" and "/") to stocks forms a computator. It does not make sense to use these un
+In addition, using arithmetical operations (such as "+", "-", "*" and "/") to stocks forms a computator.
 
 ---
 ## Terminology
