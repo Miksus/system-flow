@@ -32,6 +32,8 @@ class Flow(SimBase):
         self.valve = valve
         self.at_limit = at_limit
 
+        self.value = None
+
     def __call__(self):
         "Flow from input to output by value defined by valve"
         flow_value = self.get_flow_value()
@@ -49,7 +51,7 @@ class Flow(SimBase):
         self.input -= flow_value
         self.output += flow_value
 
-        self.flow_value = flow_value
+        self.value = flow_value
 
     def get_flow_value(self):
         """Value to flow from input to output
