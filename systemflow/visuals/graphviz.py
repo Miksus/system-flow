@@ -58,6 +58,12 @@ class Graphviz:
     def __str__(self):
         return self.source
 
+    @property
+    def graph_obj(self):
+        "Return Graphviz graph object"
+        src = 'digraph {' + str(self) + '}'
+        return Source(src)
+
     def _repr_svg_(self):
         src = 'digraph {' + str(self) + '}'
         return Source(src)._repr_svg_()
@@ -147,9 +153,12 @@ class Graphviz:
             curr_link = Graphviz.to_link(input, comp, label=symb, style="dotted")
 
             is_input_computator = isinstance(input, core.computator.ComputatorBase)
+            is_input_stock = isinstance(input, core.stock.Stock)
             if is_input_computator:
                 sub_sources = Graphviz.computator_to_source(input)
-            else:
+            elif is_input_stock:
+                sub_sources = Graphviz.stock_to_source(input)
+            else:   
                 # When input is int/float/et cetera
                 sub_sources = Graphviz.to_node(input, label=str(input), shape="plaintext", fillcolor=None)
     
