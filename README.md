@@ -1,9 +1,9 @@
 
 # System Flow
 
-> System Dynamic library for Python!
+> System Dynamics package for Python!
 
-> Syntaxically clean and extendable library for modelling complex multidomain dynamic systems.
+> Syntaxically clean and clean and extendable pure Python package for modelling complex multidomain dynamic systems.
 
 > Simulation, System Dynamics, Modelling
 

@@ -3,6 +3,7 @@ from collections.abc import Iterable
 from systemflow.core import Flow, Stock, ComputatorBase
 
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt 
 
 class System:
@@ -29,9 +30,18 @@ class System:
     def simulate(self):
         for elem in self.all_elems:
             elem.reset()
-        stock_results = []
-        flow_results = []
-        comp_results = []
+        stock_results = [{
+            stock: stock.initial_value 
+            for stock in self.stocks
+        }]
+        flow_results = [{
+            flow: np.nan
+            for flow in self.flows
+        }]
+        comp_results = [{
+            comp: np.nan
+            for comp in self.computators
+        }]
         for state in range(self.start, self.stop, self.step):
             for flow in self.flows:
                 flow()
@@ -83,6 +93,7 @@ class System:
             ax.set_title(plot_name)
             ax.legend()
             ax.set_xlabel("Time")
+            ax.axvline(0, color="k", linestyle="--")
         return fig, axes
 
 
