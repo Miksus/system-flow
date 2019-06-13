@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 
 from systemflow.core import Flow, Stock, ComputatorBase
 
@@ -59,33 +60,31 @@ class System:
     def flow_results(self):
         return 
 
-    def plot(self):
-        flows = self.results["flow"]
-        stocks = self.results["stock"]
-        computators = self.results["computator"]
+    def plot(self, stocks:bool = None, flows:bool = None, computators:bool = None):
+        to_plot = []
+        no_args_defined = stocks is None and flows is None and computators is None
 
-        flows.columns = flows.columns.map(lambda col: str(col))
-        stocks.columns = stocks.columns.map(lambda col: str(col))
-        computators.columns = computators.columns.map(lambda col: str(col))
+        if stocks or no_args_defined:
+            to_plot.append(("Stocks", self.results["stock"]))
+        if flows:
+            to_plot.append(("Flows", self.results["flow"]))
+        if computators:
+            to_plot.append(("Computators", self.results["computator"]))
 
+        fig, axes = plt.subplots(len(to_plot), 1, figsize=[10, 7*len(to_plot)])
+        axes = [axes] if not isinstance(axes, Iterable) else axes
 
-        fig, (ax_stocks, ax_flows, ax_comps) = plt.subplots(3, 1, figsize=[10, 20])
+        for (plot_name, data), ax in zip(to_plot, axes):
+            data.columns = data.columns.map(lambda col: str(col))
 
-        for col in stocks.columns:
-            ax_stocks.plot(stocks.index, stocks[col].values, label=col[:30])
-        ax_stocks.set_title("Stocks")
+            for col in data.columns:
+                ax.plot(data.index, data[col].values, label=col[:30])
 
-        for col in flows.columns:
-            ax_flows.plot(flows.index, flows[col].values, label=col[:30])
-        ax_flows.set_title("Flows")
+            ax.set_title(plot_name)
+            ax.legend()
+            ax.set_xlabel("Time")
+        return fig, axes
 
-        for col in computators.columns:
-            ax_comps.plot(computators.index, computators[col].values, label=col[:30])
-        ax_comps.set_title("Computators")
-
-        ax_stocks.legend()
-        ax_flows.legend()
-        ax_comps.legend()
 
 
     def __getitem__(self, value):
