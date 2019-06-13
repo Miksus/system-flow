@@ -6,10 +6,11 @@
 
 try:
     from graphviz import Digraph, Source
+    _GRAPHVIZ_IMPORTED = True
 except ModuleNotFoundError:
-    raise
     import warnings
     warnings.warn("Graphviz not found. Cannot display diagrams.", category=ImportWarning)
+    _GRAPHVIZ_IMPORTED = False
 
 from systemflow import core
 
@@ -36,6 +37,8 @@ class Graphviz:
         # instance.self
         # where self is CLASS attribute of owner
         # and instance is instance of owner class
+        if not _GRAPHVIZ_IMPORTED:
+            raise ImportError("Cannot draw diagrams without Graphviz installed. Please install Graphviz first.")
         mapping = {
             core.stock.Stock: self.stock_to_source,
             core.flow.Flow: self.flow_to_source,
