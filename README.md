@@ -3,7 +3,7 @@
 
 > System Dynamics package for Python!
 
-> Syntaxically clean and clean and extendable pure Python package for modelling complex multidomain dynamic systems.
+> Syntatically clean and simple Python package for modelling complex multidomain dynamic systems.
 
 > Simulation, System Dynamics, Modelling
 
@@ -35,8 +35,7 @@ system.plot()
 ```
 ![Example](docs/img/readme_fig.png "Rain Simulation")
 
-System Flow uses the Python's magic methods extensively. Even though magic method "```>>```"  is a bitwise operation, it also resembles a transistion. A flow is formed using this operation in between two stocks. This is also equal to ```Flow(sf.Stock("a"), sf.Stock("b"))```.
-In addition, using arithmetical operations (such as "+", "-", "*" and "/") to stocks forms a computator.
+System Flow uses extensively the Python's magic methods. Even though magic method "```>>```"  is a bitwise operation, it also resembles a transition and for this reason it was chosen to resemble a flow when used between stocks. The core idea of System Flow is to make the making system dynamics models as easy as writing it down on a paper. Of course there is extensive GUI for it in MATLAB but this package is for those who prefer open source over commercial products.
 
 ---
 ## Terminology
@@ -46,12 +45,12 @@ In addition, using arithmetical operations (such as "+", "-", "*" and "/") to st
 - Computator: computation class for computing the values of valves or used for analytical purposes. Do not affect the stocks directly and produces values on demand.
 - System: collection stocks, flows and computators that form a system. Used for the actual simulation.
 
-Analogy:
-- Stock can be seen as a water container
-- Flow can be seen a pipe that transport water from one container (stock) to another
-    - valve is like a valve in the pipe: controls the amount of water flowing per second
-- Computator is kind of the wiring for the valve: does not directly affect the amount of water in each container but can be used (but not necessarily) to control how much the valve is open in each time step
-- System could be seen as the components in a water treatment plant
+### Analogy: Water treatment plant
+- Stock can be thought as a water container.
+- Flow can be thought as a pipe that transport water from one container (stock) to another.
+    - valve is like a valve in this pipe: controls the amount of water flowing per second through the pipe.
+- Computator is kind of the wirings and sensors of the plant: does not directly affect the amount of water in each container but can be used to control how much the valve is open in each moment. It also can be used to show things like how much water is in the plant in total.
+- System is all the components in the plant.
 
 ---
 ## Alchemy
